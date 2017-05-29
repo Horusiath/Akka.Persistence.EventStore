@@ -10,17 +10,17 @@ using Akka.Persistence.Journal;
 using Xunit;
 using Akka.Persistence.TestKit.Journal;
 using Akka.Configuration;
+using Xunit.Abstractions;
 
 
 namespace Akka.Persistence.EventStore.Tests
 {
-    public partial class EventStoreJournalSpec : JournalSpec
+    public class EventStoreJournalSpec : JournalSpec
     {
         private static readonly Config SpecConfig = ConfigurationFactory.ParseString(@"
             akka {
                 stdout-loglevel = DEBUG
 	            loglevel = DEBUG
-                loggers = [""Akka.Logger.NLog.NLogLogger,Akka.Logger.NLog""]
 
                 persistence {
 
@@ -41,8 +41,8 @@ namespace Akka.Persistence.EventStore.Tests
             }
         }
         ");
-        public EventStoreJournalSpec()
-            : base(SpecConfig, "EventStoreJournalSpec") 
+        public EventStoreJournalSpec(ITestOutputHelper output)
+            : base(SpecConfig, "EventStoreJournalSpec", output: output) 
         {
             Initialize();
         }

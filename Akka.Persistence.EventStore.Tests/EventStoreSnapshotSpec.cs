@@ -10,6 +10,7 @@ using Akka.Persistence.Journal;
 using Xunit;
 using Akka.Persistence.TestKit.Snapshot;
 using Akka.Configuration;
+using Xunit.Abstractions;
 
 
 namespace Akka.Persistence.EventStore.Tests
@@ -20,7 +21,6 @@ namespace Akka.Persistence.EventStore.Tests
             akka {
                 stdout-loglevel = DEBUG
 	            loglevel = DEBUG
-                loggers = [""Akka.Logger.NLog.NLogLogger,Akka.Logger.NLog""]
 
                 persistence {
 
@@ -42,8 +42,8 @@ namespace Akka.Persistence.EventStore.Tests
         }
         ");
 
-        public EventStoreSnapshotSpec()
-            : base(SpecConfig, "EventStoreSnapshotSpec")
+        public EventStoreSnapshotSpec(ITestOutputHelper output)
+            : base(SpecConfig, "EventStoreSnapshotSpec", output: output)
         {
             Initialize();
         }
